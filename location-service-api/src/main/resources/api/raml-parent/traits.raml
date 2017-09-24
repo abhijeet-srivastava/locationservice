@@ -1,0 +1,95 @@
+cors:
+  displayName: CORS
+  description: Handle call from cross domain
+  responses:
+    204:
+      headers:
+        Access-Control-Allow-Origin:
+          example: |
+            *
+        Access-Control-Allow-Methods:
+          example: |
+            *
+        Access-Control-Allow-Headers:
+          example: |
+            *
+searchable:
+  displayName: Searchable
+  responses:
+    404:
+      description: Not Found.
+      body:
+        application/json:
+          example: |
+            {
+              "code": 404,
+              "message" : "resource not found."
+            }
+validateable :
+  displayName: Validateable
+  responses:
+    422:
+      description: Unprocessable entity.
+      body:
+        application/json:
+          example: |
+            {
+              "code": 422,
+              "message" : "unprocessable entity."
+            }
+parseable :
+  displayName: Parseable
+  responses:
+    400:
+      description: Bad Request.
+      body:
+        application/json:
+          example: |
+            {
+              "code": 400,
+              "message" : "Bad Request. Failed to parse."
+            }
+updatable:
+  displayName: Updatable
+  responses:
+    412:
+      description: Pre-Condition Failed. If-Match header must match current ETag.
+      body:
+        application/json:
+          example: |
+            {
+              "code": 412,
+              "message" : "Pre-Condition Failed. If-Match header must match current ETag."
+            }
+envAware:
+  displayName: Environment Aware
+  queryParameters:
+    environment:
+      type: string
+      description: |
+        Used to specify the environment the data belongs too. This will default to the environment that the service is running on.
+      example: dev
+pageable:
+  displayName: Pagination Properties
+  queryParameters:
+    offset:
+      type: integer
+      description: |
+        The first record in the collection that is returned as part of the page.
+      default: 1
+      minimum: 1
+    limit:
+      type: integer
+      description: |
+        The number of records to return on the page, not to exceed <<maxPerPage>>
+      minimum: 1
+      maximum: <<maxPerPage>>
+      default: 10
+sortable:
+  displayName: Sortable
+  queryParameters:
+    sort:
+      type: string
+      description: |
+        a comma separated list of sort field and sort direction.
+      example: lastName:ASC,age:DESC

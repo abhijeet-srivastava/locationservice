@@ -1,0 +1,107 @@
+item:
+    get?:
+        description: Gets the <<resourcePathName>>.
+        responses:
+            200:
+                headers:
+                    ETag:
+                        type: string
+                        description: Resource Etag.
+                body:
+                    application/json:
+                        schema: <<resourcePathName>>
+    post?:
+        description: Creates a <<resourcePathName>>.
+        body:
+            application/json:
+                schema: <<resourcePathName>>
+        responses:
+            201:
+                headers:
+                  Location:
+                    type: string
+                    description: The newly created <<resourcePathName>>
+                description: <<resourcePathName>> created.
+                body:
+                    application/json:
+                        schema: <<resourcePathName>>
+    put?:
+        description: Updates the <<resourcePathName>>.
+        headers:
+            If-Match:
+                type: string
+                description: Resource Etag.
+        body:
+            application/json:
+                schema: <<resourcePathName>>
+        responses:
+            200:
+                body:
+                    application/json:
+                        schema: <<resourcePathName>>
+collection:
+    get?:
+      description: Gets a list of <<resourcePathName | !pluralize>>.
+      queryParameters:
+        offset:
+          description: Specify the offset (starting point) in the list to return a subset of the data to the caller.
+          type: integer
+          required: false
+          example: 0
+        limit:
+          description: Specify the max number of records to return for this collection.
+          type: integer
+          required: false
+          example: 100
+      responses:
+          200:
+              description: OK
+              body:
+                  application/json:
+                      schema: <<resourcePathName | !pluralize>>
+    post?:
+        description: Creates a <<resourcePathName>>.
+        body:
+            application/json:
+                schema: <<resourcePathName>>
+        responses:
+            201:
+                headers:
+                  Location:
+                    type: string
+                    description: The newly created <<resourcePathName>>
+                description: <<resourcePathName>> created.
+                body:
+                    application/json:
+                        schema: <<resourcePathName>>
+bulk-collection:
+    get?:
+      description: Gets a list of <<resourcePathName | !pluralize>>.
+      queryParameters:
+        offset:
+          description: Specify the offset (starting point) in the list to return a subset of the data to the caller.
+          type: integer
+          required: false
+          example: 0
+        limit:
+          description: Specify the max number of records to return for this collection.
+          type: integer
+          required: false
+          example: 100
+      responses:
+          200:
+              description: OK
+              body:
+                  application/json:
+                      schema: <<resourcePathName | !pluralize>>
+    post?:
+        description: Creates a batch of <<resourcePathName | !pluralize>>.
+        body:
+            application/json:
+                schema: <<resourcePathName | !pluralize>>
+        responses:
+            201:
+                description: <<resourcePathName | !pluralize>> created.
+                body:
+                    application/json:
+                        schema: <<resourcePathName | !pluralize>>

@@ -1,0 +1,62 @@
+server:
+    applicationConnectors:
+        - type: "http"
+          port: 8088
+    adminConnectors:
+        - type: "http"
+          port: 8089
+    requestLog:
+        appenders:
+          - type: "file"
+            currentLogFilename: "logs/access.log"
+            archivedLogFilenamePattern: "logs/access.%d{yyyy-MM-dd}.log.gz"
+    type: "default"
+
+# This setting is required so that we could be backwards compatible with older formats that didn't respect the changes
+# made here.  We made a breaking change and this setting requires the developers to make an explicit decision on what
+# date format they want to support in serialization for their application.  All new services should use "CventStandard"
+dropWizardDateTimeFormat: "CventStandard"
+
+# The api key for this application.  This is used so that we can auth inbound requests with our auth service.  This
+# can also be used to communicate with other internal cvent services.
+apiKey: "TODO"
+
+# The name of the environment for which this service will be deployed.
+environmentName: "dev"
+
+# Because we're doing local development, we can turn off authentication and this forces the auth code to just use a
+# fake token which is defined below.  Be careful with this setting because if this fake token will not work for
+# dependent services.
+authRequired: false
+
+# Configuration used for the auth client which defaults to our staging region
+authClient:
+    endpoint: "http://discovery-staging.core.cvent.org/auth-service-web-staging/auth"
+    config:
+        retries: 3
+        timeout: "30 second"
+        connectionTimeout: "20 second"
+        timeToLive: "1 minute"
+        cookiesEnabled: false
+        maxConnections: 128
+        maxConnectionsPerRoute: 128
+        keepAlive: "30 seconds"
+        minThreads: 1
+        maxThreads: 32
+        gzipEnabled: true
+        gzipEnabledForRequests: true
+
+# This is fake token data that's only used when authRequired is set to false
+noOpAccessToken:
+    appId: 0
+    accessToken: "65f83885027158d8e7438f5b4bcaeba9"
+    authorization:
+        roles:
+            - "ADMIN"
+    accessTokenTTL: 3600
+    created: 1393441936000
+    lastModified: 1393441936000
+    apiKey: "5d319f75d28a6e32b3975083637ba713"
+    apiSecret: "b984de0916e45d768a2964306421727a"
+
+

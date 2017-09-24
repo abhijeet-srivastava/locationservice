@@ -1,0 +1,41 @@
+server:
+    applicationConnectors:
+        - type: "http"
+          port: 0
+    adminConnectors:
+        - type: "http"
+          port: 0
+    requestLog:
+        appenders:
+          - type: "file"
+            currentLogFilename: "logs/access.log"
+            archivedLogFilenamePattern: "logs/access.%d{yyyy-MM-dd}.log.gz"
+    type: "default"
+
+# This setting is required so that we could be backwards compatible with older formats that didn't respect the changes
+# made here.  We made a breaking change and this setting requires the developers to make an explicit decision on what
+# date format they want to support in serialization for their application.  All new services should use "CventStandard"
+dropWizardDateTimeFormat: "CventStandard"
+
+environmentName: "{{environment.key}}"
+
+apiKey: "TODO"
+
+# Configuration used for the auth client which defaults to our staging region
+authClient:
+    endpoint: "{{auth-service.endpoint.internal}}"
+    config:
+        retries: 3
+        timeout: "30 second"
+        connectionTimeout: "20 second"
+        timeToLive: "1 minute"
+        cookiesEnabled: false
+        maxConnections: 128
+        maxConnectionsPerRoute: 128
+        keepAlive: "30 seconds"
+        minThreads: 1
+        maxThreads: 32
+        gzipEnabled: true
+        gzipEnabledForRequests: true
+
+

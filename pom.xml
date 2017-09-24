@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <groupId>com.cvent</groupId>
+        <artifactId>maven-parent</artifactId>
+        <version>3.13</version>
+        <relativePath />
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.cvent.location-service</groupId>
+    <artifactId>location-service-parent</artifactId>
+    <name>location-service-parent</name>
+    <packaging>pom</packaging>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <properties>
+        <!-- Used for deploy scripts so it can determine which module to deploy -->
+        <modules.to.deploy>location-service-service</modules.to.deploy>
+
+        <!-- Third Party Dependencies -->
+        <dropwizard.version>0.7.1.3</dropwizard.version>
+        <dropwizard-unit-tests.version>2.0.27</dropwizard-unit-tests.version>
+        <clover-maven-plugin.version>4.2.0</clover-maven-plugin.version>
+        <immutables.version>2.3.9</immutables.version>
+        <immutables-cvent.version>1.0.6</immutables-cvent.version>
+        
+
+        <!-- Cvent Dependencies -->
+        <auth-service-core.version>3.2.4</auth-service-core.version>
+        <dropwizard-common.version>4.0.47</dropwizard-common.version>
+        
+        <raml-validator.version>2.0.1</raml-validator.version>
+
+        <!-- Test Dependencies -->
+        <hamcrest-library.version>1.3</hamcrest-library.version>
+        <mockito-all.version>1.9.0</mockito-all.version>
+        <junit.version>4.11</junit.version>
+
+        <!-- Maven Test Plugins -->
+        <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>2.19.1</maven-failsafe-plugin.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Override transitive dependencies and control the version ourselves -->
+            <dependency>
+                <groupId>com.cvent</groupId>
+                <artifactId>dropwizard-common</artifactId>
+                <version>${dropwizard-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.cvent.auth-service</groupId>
+                <artifactId>auth-service-core</artifactId>
+                <version>${auth-service-core.version}</version>
+            </dependency>
+            
+        </dependencies>
+    </dependencyManagement>
+
+    <scm>
+        <developerConnection>scm:git:ssh://git@stash:7999/INCB/location-service.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <profiles>
+        <profile>
+            <id>run-it</id>
+            <properties>
+                <checkstyle.skip>true</checkstyle.skip>
+                <skipIntegrationTests>false</skipIntegrationTests>
+            </properties>
+            <modules>
+                <module>location-service-integration-test</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <skipIntegrationTests>true</skipIntegrationTests>
+            </properties>
+            <modules>
+                <module>location-service-api</module>
+                <module>location-service-dotnet-client</module>
+                <module>location-service-java-client</module>
+                <module>location-service-service</module>
+                <module>location-service-integration-test</module>
+            </modules>
+        </profile>
+    </profiles>
+
+</project>

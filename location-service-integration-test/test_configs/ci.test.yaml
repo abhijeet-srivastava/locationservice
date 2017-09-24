@@ -1,0 +1,7 @@
+# integration test properties
+
+environment: ci
+
+apiKey: "<TODO>"
+
+serviceEndpoint: http://discovery-alpha.core.cvent.org/location-service-ci/

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+  <metadata>
+    <id>Com.Cvent.LocationService.Client</id>
+    <version>0.0.0.0</version>
+    <title>Com.Cvent.LocationService.Client</title>
+    <authors>Luke Roling</authors>
+    <owners>Luke Roling</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Client for the Location Service service</description>
+    <copyright>Copyright © 2015</copyright>
+  </metadata>
+  <files>
+      <file src="Client\bin\$configuration$\Com.Cvent.LocationService*" target="lib\net45" />
+  </files>
+</package>

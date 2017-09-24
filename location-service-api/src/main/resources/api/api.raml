@@ -1,0 +1,48 @@
+#%RAML 1.0
+---
+title: LocationService
+version: v1
+mediaType: application/json
+
+traits: !include ./raml-parent/traits.raml
+securitySchemes: !include raml-parent/cvent-auth.yml
+
+/entities:
+    post:
+        description: Create a new contact.
+        is: [parseable, validateable]
+        securedBy: [access_token]
+        body:
+            application/json:
+              example: !include examples/sample-entity.json
+        responses:
+            201:
+                description: entity created.
+                body:
+    /{entityStub}:
+        get:
+            description: Get an entity.
+            is: [validateable, searchable]
+            securedBy: [access_token]
+            responses:
+                200:
+                    description: OK
+                    body:
+                        application/json:
+                          example: !include examples/sample-entity.json
+        put:
+            description: Updates an existing entity.
+            is: [parseable, searchable, validateable]
+            securedBy: [access_token]
+            body:
+            responses:
+                200:
+                    description: Entity updated.
+                    body:
+                        application/json:
+                          example: !include examples/sample-entity.json
+        delete:
+            description: Delete an entity.
+            is: [validateable]
+            securedBy: [access_token]
+

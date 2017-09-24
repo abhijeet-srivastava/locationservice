@@ -1,0 +1,59 @@
+access_token:
+    description: Cvent supports a custom oauth like auth mechanism.
+    type: x-CventAuth
+    describedBy:
+        headers:
+            Authorization:
+                description: |
+                   Used to send a valid Cvent auth access token. Do not use
+                   with the "access_token" query string parameter.
+                type: string
+                example: bearer 422fddd2b7d7259e3c7e9b3c9679e462
+        queryParameters:
+            access_token:
+                description: |
+                   Used to send a valid Cvent auth access token. Do not use together with
+                   the "Authorization" header
+                type: string
+                example: 422fddd2b7d7259e3c7e9b3c9679e462
+        responses:
+            401:
+                description: |
+                    Bad or expired token. This can happen if the user or Cvent
+                    revoked or expired an access token. To fix, you should re-
+                    authenticate the user.
+                body:
+                    application/json:
+                      example: !include examples/response-401.json
+            403:
+                description: |
+                    Bad Cvent auth request (wrong consumer key, bad nonce, expired
+                    timestamp, not enough privileges, etc...). Unfortunately, re-authenticating the user won't help here.
+                body:
+                    application/json:
+                      example: !include examples/response-403.json
+api_key:
+    description: Cvent supports a custom oauth like auth mechanism.
+    type: x-CventAuth
+    describedBy:
+        headers:
+            Authorization:
+                description: |
+                   Used to send a valid Cvent auth api key.
+                type: string
+                example: api_key 422fddd2b7d7259e3c7e9b3c9679e462
+        responses:
+            401:
+                description: |
+                    Bad or expired api key. This can happen if the user or Cvent
+                    revoked the api key. To fix, you should contact the api administrator.
+                body:
+                    application/json:
+                      example: !include examples/response-401.json
+            403:
+                description: |
+                    Bad Cvent auth request (wrong consumer key, bad nonce, expired
+                    timestamp, not enough privileges, etc...). Unfortunately, re-authenticating the user won't help here.
+                body:
+                    application/json:
+                      example: !include examples/response-403.json
