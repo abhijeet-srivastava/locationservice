@@ -3,7 +3,6 @@ package com.cvent.locationservice.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.cvent.immutables.CventStyle;
 import org.immutables.value.Value.Immutable;
 import javax.validation.constraints.Size;
 import javax.validation.Valid;
@@ -15,7 +14,6 @@ import javax.validation.Valid;
 @JsonSerialize
 @JsonDeserialize(as = ImmutableEntity.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@CventStyle
 public interface Entity {
 
     int MIN_LEN_ANOTHER_FIELD = 2;

@@ -1,14 +1,17 @@
 package com.cvent.locationservice;
 
-import com.cvent.auth.CventAuthenticatedApplication;
+import com.cvent.locationservice.dao.PersonDAO;
 import com.cvent.locationservice.health.LocationServiceHealthCheck;
 import com.cvent.locationservice.resources.LocationServiceResource;
-import com.cvent.healthcheck.ServiceDiscoveryClientHealthCheckGenerator;
 
 
+import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+
+import io.dropwizard.jdbi.DBIFactory;
+import org.skife.jdbi.v2.DBI;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +20,7 @@ import org.slf4j.LoggerFactory;
  * A class to setup and initialize the service.
  */
 public class LocationServiceServiceApplication
-    extends CventAuthenticatedApplication<LocationServiceServiceConfiguration> {
+    extends Application<LocationServiceServiceConfiguration> {
 
     public static final String APPLICATION_NAME = "locationservice-service";
 
@@ -32,22 +35,21 @@ public class LocationServiceServiceApplication
 
     @Override
     public void initialize(Bootstrap<LocationServiceServiceConfiguration> bootstrap) {
-        super.initialize(bootstrap);
         bootstrap.addBundle(new AssetsBundle("/api", "/raml", "index.html", "docs"));
     }
 
     @Override
     public void run(LocationServiceServiceConfiguration config, Environment environment) throws Exception {
-        super.run(config, environment);
-
+        final DBIFactory factory = new DBIFactory();
+        final DBI jdbi = factory.build(environment, config.getDataSourceFactory(), "h2");
+        final PersonDAO personDAO = jdbi.onDemand(PersonDAO.class);
         
 
         //setup resources
-        environment.jersey().register(new LocationServiceResource());
+        environment.jersey().register(new LocationServiceResource(personDAO));
 
         //setup healthchecks
         environment.healthChecks().register(this.getName(), new LocationServiceHealthCheck());
-        ServiceDiscoveryClientHealthCheckGenerator.registerClientHealthChecks(config, environment);
 
         LOGGER.info("All resources added for {}", getName());
     }

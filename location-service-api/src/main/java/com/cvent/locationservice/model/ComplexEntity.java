@@ -3,7 +3,6 @@ package com.cvent.locationservice.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.cvent.immutables.CventStyle;
 import org.immutables.value.Value.Immutable;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -16,7 +15,6 @@ import org.immutables.value.Value.Parameter;
 @JsonSerialize
 @JsonDeserialize(as = ImmutableComplexEntity.class)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@CventStyle
 public interface ComplexEntity {
 
     int MIN_COMPLEXITY = 2;

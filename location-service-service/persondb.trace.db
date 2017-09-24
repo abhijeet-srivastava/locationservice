@@ -1,0 +1,6 @@
+2017-09-25 00:11:10 jdbc[10]: exception
+org.h2.jdbc.JdbcSQLException: Table "PERSON" not found; SQL statement:
+/* PersonDAO.getAll */ select * from PERSON [42102-192]
+2017-09-25 00:12:41 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "PERSON" not found; SQL statement:
+/* PersonDAO.getAll */ select * from PERSON [42102-192]

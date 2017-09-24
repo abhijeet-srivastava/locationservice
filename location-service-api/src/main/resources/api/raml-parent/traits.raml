@@ -20,11 +20,7 @@ searchable:
       description: Not Found.
       body:
         application/json:
-          example: |
-            {
-              "code": 404,
-              "message" : "resource not found."
-            }
+          example: !include examples/response-404.json
 validateable :
   displayName: Validateable
   responses:
@@ -32,11 +28,7 @@ validateable :
       description: Unprocessable entity.
       body:
         application/json:
-          example: |
-            {
-              "code": 422,
-              "message" : "unprocessable entity."
-            }
+          example: !include examples/response-422.json
 parseable :
   displayName: Parseable
   responses:
@@ -44,11 +36,7 @@ parseable :
       description: Bad Request.
       body:
         application/json:
-          example: |
-            {
-              "code": 400,
-              "message" : "Bad Request. Failed to parse."
-            }
+          example: !include examples/response-400.json
 updatable:
   displayName: Updatable
   responses:
@@ -56,11 +44,7 @@ updatable:
       description: Pre-Condition Failed. If-Match header must match current ETag.
       body:
         application/json:
-          example: |
-            {
-              "code": 412,
-              "message" : "Pre-Condition Failed. If-Match header must match current ETag."
-            }
+          example: !include examples/response-412.json
 envAware:
   displayName: Environment Aware
   queryParameters:
